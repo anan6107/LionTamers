@@ -91,7 +91,7 @@ string CounterClock ( int mat[R][C], int row, int col)
 
     rowN = row;
     colN = col + 1; 
-   // int down = row + 1;
+   // int down = row + 1;   //cout << "here";
     bool right_T = check_if_bounds(  rowN,  colN);
     //check_if_bounds( down, col);
     if(  right_T && (mat[ rowN] [colN] == -1) )
@@ -200,7 +200,7 @@ string Determine_Orientation (int mat[R][C], int row, int col )
         return orientation;
     }
 
-     rowN = row - 1;
+    rowN = row - 1;
     colN= col- 1; 
    // int down = row + 1;
     bool left_up_T = check_if_bounds(  rowN, colN);
@@ -215,194 +215,187 @@ string Determine_Orientation (int mat[R][C], int row, int col )
 
 void Go_Down_Path ( int mat[R][C], int &row , int &col, string orientation, int & countoftotal) 
 {
-
+	// for each case, if there is only one weight side, it should also move it to the appropiate place 
     if( orientation == "up_right")
     {
-    	cout << "Here"<<endl;
+        // if(mat[row][col] != -1 && mat[row][col] != -2)
+        //{    
+        //}
+    	// row = row+1 ;
+     	//    mat[row][col] = -1;
+     	//    countoftotal = countoftotal -1; // go in down
 
-        if(mat[row][col] != -1 && mat[row][col] != -2)
-        {
-                mat[row+1][col] = -1;
-                countoftotal = countoftotal -1;
-        }
-        row = row+1 ;
-        cout<< row;
-   		cout << col;
-
-
-        while (row >0 && col> 0 && row < R && col < C && mat[row-1][col+1] != -2)
+        while (row > 0 && col> 0 && row < R && col < C && mat[row-1][col+1] != -2 && mat[row-1][col+1] != -1)
    		{
    			row = row -1;
    			col = col +1;
    			mat [row] [col] = -1 ; 
             countoftotal = countoftotal - 1;
    		}
-   		cout<< row;
-   		cout << col;
-
+   		// if to adjust the position
    		return;
     }
 
     if( orientation == "down_right")
     {
-        mat [row+1] [col] = -1 ; // traverse the down part first 
-        countoftotal = countoftotal - 1;
-        row = row +1 ;
+    // {
+    //     mat [row+1] [col] = -1 ; // traverse the down part first 
+    //     countoftotal = countoftotal - 1;
+    //     row = row +1 ;
 
-        while (row >0 && col> 0 && row < R && col < C && mat[row][col] != -2)
+        while (row >0 && col> 0 && row < R && col < C && mat[row+1][col+1] != -2  && mat[row+1][col+1] != -1)
         {
 
             row = row +1;
             col = co1 +1;
-            if(mat[row][col] != -1 && mat[row][col] != -2)
-            {
-                mat[row][col] = -1;
-                countoftotal = countoftotal -1;
-            }
-        }
-        if ( orientation == "down_right")
-        {
-            col = col + 1; // ending condition
+            mat[row][col] = -1;
+            ountoftotal = countoftotal -1;
+            
         }
 
-      
+        // if ( orientation == "down_right")
+        // {
+        //     col = col + 1; // ending condition
+        // }
+        return;
+
     }
 
     if( orientation == "up")
     {
-        mat [row] [col+1] = -1 ; // traverse the down part first 
-        countoftotal = countoftotal - 1;
-        col = col +1 ;
-        cout<< row;
-   		cout << col;
+        // mat [row] [col+1] = -1 ; // traverse the down part first 
+        // countoftotal = countoftotal - 1;
+        // col = col +1 ;
+ 
 
-
-        while (row >0 && col> 0 && row < R && col < C && mat[row-1][col] != -1)
+        while (row >0 && col> 0 && row < R && col < C && mat[row-1][col] != -1 &&  mat[row-1][col] != -2)
    		{
    			row = row -1;
    			mat [row] [col] = -1 ; 
-
-            if(mat[row][col] != -1 && mat[row][col] != -2)
-            {
-                mat[row][col] = -1;
-                countoftotal = countoftotal -1;
-            }
+   			countoftotal = countoftotal -1;
    		}
-   		cout<< row;
-   		cout << col;
-
+   		// if to adjust the position 
+   		if(orientation == "up")
+        {
+            row = row -1 ; 
+        }
+        // if to adjust position
    		return;
     }
-    //cout<< row;
-    //cout << col<<endl;
+
     if(orientation == "left")
    	{
-   		cout <<"here";
-   		mat[row -1] [col] = -1;
-        countoftotal = countoftotal - 1;
-   		row = row -1;
-   		cout << row;
-   		cout << col<<endl;
-   		//return;
+   		// mat[row -1] [col] = -1;
+     //    countoftotal = countoftotal - 1; 
+   		// row = row -1; go up first
 
-   		while (row >0 && col> 0 && row < R && col < C && mat[row][col] != -2)
+   		while (row >0 && col> 0 && row < R && col < C && mat[row][col-1] != -2 && mat[row][col-1] != -1)
    		{
-   	
-
+   
     		col = col -1;
-    		//mat [row] [col] = -1 ; 
-            if(mat[row][col] != -1)
-            {
-                mat[row][col] = -1;
-                countoftotal = countoftotal -1;
-            }
-            //countoftotal = countoftotal - 1;
-
-       		for ( int r =0 ; r < R ; r++)
-            {
-                for ( int c =0 ; c < C ; c++)
-                {
-                    if (mat[r][c]>0 )
-                    {
-                          cout << " ";
-                         cout << mat[r][c];
-                    }
-                    
-                    else
-                        cout << mat[r][c];
-                }
-                cout << endl; 
-            }
-
-        	cout<< row;
-        	cout<<col<<endl;
-
-    		if( mat[row][col-1] == -2 || mat[row][col-1] == -1)
-    		{
-    			return;
-    		}
-
-
+            mat[row][col] = -1;
+            countoftotal = countoftotal -1;
        	}
+       	// if to adjust positions
+       	if( orientation == " left")
+        {
+            co1 = co1 -1; 
+        }
+        // if to adjust position
        	return;
    	}
 
     if( orientation == "down_left")
     {
-        int count = 0;
-
-        while (row >0 && col> 0 && row < R && col < C && mat[row][col] != -2)
+        
+        while (row >0 && col> 0 && row < R && col < C && mat[row+1][col-1] != -2 && mat[row+1][col-1] != -1)
         {
             
-        	cout<< orientation;
-        	cout << count;
+        	// cout<< orientation;
+        	// cout << count;
         	//return;
-            if( mat[row+1][col-1] == -1)
-            {
-            	if(orientation == "down_left" && count == 0)
-            	{
-            		row = row + 1;
-            		col = col -1;
-            		return;
-            	}
-                return;
-            }
+            // if( mat[row+1][col-1] == -1) // attempt to finish the one side edge problem
+            // {
+            // 	if(orientation == "down_left" && count == 0)
+            // 	{
+            // 		row = row + 1;
+            // 		col = col -1;
+            // 		return;
+            // 	}
+            //     return;
+            // }
 
-            if( mat[row+1][col+1] == -2)
-            {
-            	if(orientation == "down_left" && count == 0)
-            	{
-            		row = row - 1;
-            		return;
-            	}
-                return;
-            }
+            // if( mat[row+1][col+1] == -2)
+            // {
+            // 	if(orientation == "down_left" && count == 0)
+            // 	{
+            // 		row = row - 1;
+            // 		return;
+            // 	}
+            //     return;
+            // }
 
-            row ++;
-            col ++;
-
-            cout<< row;
-            cout << col<<endl;
-            if(mat[row][col] != -1 && mat[row][col] != -2)
-            {
-                mat[row][col] = -1;
-                countoftotal = countoftotal -1;
-            }
+            row = row + 1;
+            col = co1 -1;
+            mat[row][col] = -1;
+            countoftotal = countoftotal -1;
+            
         }
+
+        if( orientation == "down_left")
+        {
+            co1 = co1 -1;
+        }
+
+
     }
 
     if(orientation == "up_left")
     {
+    	while (row >0 && col> 0 && row < R && col < C && mat[row - 1][col-1] != -2 && mat[row -1][col-1] != -1)
+   		{
+   			row = row -1;
+    		col = col -1;
+            mat[row][col] = -1;
+            countoftotal = countoftotal -1;
+       	}
+       	// if to adjust positions
+       	// if( orientation == " up_ left")
+        // {
+        //     co1 = co1 -1; 
+        // }
         return;
     }
 
     if(orientation == "down")
     {
+    	while (row >0 && col> 0 && row < R && col < C && mat[row+1][col] != -2 && mat[row+1][co1] != -1)
+   		{
+   			row = row +1;
+            mat[row][col] = -1;
+            countoftotal = countoftotal -1;
+       	}
+       	// if to adjust positions
+       	// if( orientation == " up_ left")
+        // {
+        //     co1 = co1 -1; 
+        // }
         return;
     }
 
     if(orientation == "right")
     {
+    	while (row >0 && col> 0 && row < R && col < C && mat[row][col+1] != -2 && mat[row][col+1] != -1)
+   		{
+    		col = col + 1;
+            mat[row][col] = -1;
+            countoftotal = countoftotal -1;
+       	}
+       	// if to adjust positions
+       	// if( orientation == " up_ left")
+        // {
+        //     co1 = co1 -1; 
+        // }
         return;
     }
 }
@@ -468,7 +461,7 @@ void populateLast (int mat[R][C])
 }
 
 int main()
-{
+{ // determine if counter clock wise clock wise  determine one sided edge
 	int mat[R][C] = 
     {
     	{-2, -2, -1, -2, -2, -2},
@@ -479,12 +472,16 @@ int main()
         {-2, -2, -2, -2, -2, -2},
 
     };
-    int startRow = 0 ;
-    int startCol = 2; // determined by the microprocessor
+    int row = 0 ;
+    int col = 2; // determined by the microprocessor
 
     findTotal(mat, countoftotal); // get the count of total right first 
 
-    while (countoftotal > 0)
+    string neworientation = "n";
+    string oldorientation = "o";
+    
+
+    while (countoftotal > 0) // case where we hit the starting position again
     {
         if(countoftotal == 1) // populate the last one unique graph that has only one left
         {
@@ -492,63 +489,18 @@ int main()
             countoftotal = countoftotal-1;
         }
    
-     
-        Go_Down_Path ( mat, row, col, Determine_Orientation ( mat, startRow, startCol ), countoftotal);
+        string neworientation = Determine_Orientation ( mat, row, col);
 
-        if ( orientation == "down_right")
+        if(oldorientation == neworientation)
         {
-            col = col + 1;
+            neworientation = CounterClock( mat, row, col); 
         }
 
-      
+        Go_Down_Path ( mat, row, col, neworientation, countoftotal);
 
+        print (mat); 
 
-
-        cout << Determine_Orientation( mat, row, col) ;
-        cout << row;
-        cout << col;
-
-        if(Determine_Orientation( mat, row, col)  == "down_left")
-        {
-            cout << "here!!" << endl;
-         	col = col -1 ;
-        }
-        cout<< row;
-        cout << col;
-
-
-        Go_Down_Path(mat, row, col,"down_left",countoftotal);
-        cout<< row;
-        cout << col <<endl;
-
-    	cout<< CounterClock( mat, row, col); 
-    	cout << "break" << endl;
-
-        Go_Down_Path(mat, row, col,"left",countoftotal);
-
-
-        col = col -1;
-        cout << row;
-        cout << col;
-
-        cout << Determine_Orientation( mat, row, col) ;
-
-
-        Go_Down_Path(mat, row, col,"up",countoftotal);
-
-        row = row -1;
-        cout << Determine_Orientation ( mat, row, col);
-
-        Go_Down_Path(mat, row, col,"up_right", countoftotal);
-
-        print(mat);
-
-        if(countoftotal == 1) // populate the last one unique graph that has only one left
-        {
-            populateLast(mat);
-            countoftotal = countoftotal-1;
-        }
-    
+        string oldorientation = neworientation;
 
     }
 
