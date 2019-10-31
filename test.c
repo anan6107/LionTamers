@@ -400,6 +400,10 @@ void Go_Down_Path ( int mat[R][C], int &row , int &col, string orientation, int 
     }
 }
 
+// repositioing function?
+
+// Two cases so far, repositioning in the normal case
+// reposition and not go down path if just one side weight
 
 void print( int mat[R][C]) 
 {
@@ -419,10 +423,9 @@ void print( int mat[R][C])
         cout << endl; 
     }
 
-
-
 }
 
+// print the position 
 void helper(int & c)
 {
     c = c + 1;
