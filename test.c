@@ -213,6 +213,7 @@ string Determine_Orientation (int mat[R][C], int row, int col )
 
 }
 
+// we also then need to account to avoid convex edges
 void Go_Down_Path ( int mat[R][C], int &row , int &col, string orientation, int & countoftotal) 
 {
 	// for each case, if there is only one weight side, it should also move it to the appropiate place 
@@ -404,6 +405,7 @@ void Go_Down_Path ( int mat[R][C], int &row , int &col, string orientation, int 
 
 // Two cases so far, repositioning in the normal case
 // reposition and not go down path if just one side weight
+// asymeterical cases might be tricky
 
 void print( int mat[R][C]) 
 {
@@ -483,6 +485,9 @@ int main()
     string neworientation = "n";
     string oldorientation = "o";
     
+    // this only works for one alogrithm/
+    //we  should keep the position of the starting point
+    // but how do we go in?
 
     while (countoftotal > 0) // case where we hit the starting position again
     {
@@ -502,6 +507,7 @@ int main()
         Go_Down_Path ( mat, row, col, neworientation, countoftotal);
 
         print (mat); 
+
 
         string oldorientation = neworientation;
 
