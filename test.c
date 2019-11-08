@@ -248,9 +248,9 @@ void Go_Down_Path ( int mat[R][C], int &row , int &col, string orientation, int 
         {
 
             row = row +1;
-            col = co1 +1;
+            col = col +1;
             mat[row][col] = -1;
-            ountoftotal = countoftotal -1;
+            countoftotal = countoftotal -1;
             
         }
 
@@ -300,7 +300,7 @@ void Go_Down_Path ( int mat[R][C], int &row , int &col, string orientation, int 
        	// if to adjust positions
        	if( orientation == " left")
         {
-            co1 = co1 -1; 
+            col = col -1; 
         }
         // if to adjust position
        	return;
@@ -337,7 +337,7 @@ void Go_Down_Path ( int mat[R][C], int &row , int &col, string orientation, int 
             // }
 
             row = row + 1;
-            col = co1 -1;
+            col = col -1;
             mat[row][col] = -1;
             countoftotal = countoftotal -1;
             
@@ -345,7 +345,7 @@ void Go_Down_Path ( int mat[R][C], int &row , int &col, string orientation, int 
 
         if( orientation == "down_left")
         {
-            co1 = co1 -1;
+            col = col -1;
         }
 
 
@@ -370,7 +370,7 @@ void Go_Down_Path ( int mat[R][C], int &row , int &col, string orientation, int 
 
     if(orientation == "down")
     {
-    	while (row >0 && col> 0 && row < R && col < C && mat[row+1][col] != -2 && mat[row+1][co1] != -1)
+    	while (row >0 && col> 0 && row < R && col < C && mat[row+1][col] != -2 && mat[row+1][col] != -1)
    		{
    			row = row +1;
             mat[row][col] = -1;
