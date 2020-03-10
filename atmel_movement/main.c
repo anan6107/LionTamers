@@ -2,7 +2,7 @@
  * PWM_Test_1280.c
  *
  * Created: 2/26/2020 8:06:14 PM
- * Author : justin 
+ * Author : Justin 
  */ 
 
 #include <avr/io.h>
@@ -138,7 +138,12 @@ int main(void)
 {
     
 	PWM_Init();
-	PWM_Speed_Update(95);
+	PWM_Speed_Update(50);
+	uint8_t Pin = 2;
+	Dig_Read_Setup(Pin);
+	DDRA|= (1 << PA7);
+	DDRG|= (1 << PG5);
+	
 	
 //	uint8_t speed_duty = 0, i = 0;
 	
@@ -183,15 +188,31 @@ int main(void)
 		//Robot_Stop();
 		//ms(5000);
 		//PWM_L_R_Update(PWM_LFT_STATE);
-		//ms(5000);
+		//ms(5000);~
 		//Robot_Stop();
 		//ms(5000);
-		PWM_L_R_Update(PWM_RGT_STATE);
+		//PWM_L_R_Update(PWM_RGT_STATE);
 		//ms(5000);
 		//PWM_L_R_Update(PWM_RGT_STATE);
 		//ms(5000);
 		//Robot_Stop();
 		//ms(5000);
+		
+		bool state = Digital_Read(Pin);
+		if(state == true)
+		{
+			PORTG |= (1 << PG5);
+			PORTA &= ~(1<<PA7);
+			PWM_F_B_Update(PWM_FWD_STATE);
+			//ms(500);
+		}
+		else
+		{
+			PORTA |= (1<<PA7);
+			PORTG &= ~(1 << PG5);
+			Robot_Stop();
+			//ms(500);
+		}
     }
 }
 
