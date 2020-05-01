@@ -8,33 +8,30 @@
 
 void setup() {
   Serial.begin (9600);
-  pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
   pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
   long duration, distance;
-  digitalWrite(trigPin, LOW);  // Added this line
-  delayMicroseconds(2); // Added this line
-  digitalWrite(trigPin, HIGH);
-  //  delayMicroseconds(1000); - Removed this line
-  delayMicroseconds(10); // Added this line
-  digitalWrite(trigPin, LOW);
   duration = pulseIn(echoPin, HIGH);
   distance = (duration / 2) / 29.1;
-  if (distance < 4) {  // This is where the LED On/Off happens
-    digitalWrite(LED_BUILTIN, HIGH); // When the Red condition is met, the Green LED should turn off
+
+
+  if (distance < 30) {
+    digitalWrite(LED_BUILTIN, HIGH);
   }
   else {
     digitalWrite(LED_BUILTIN, LOW);
   }
-  if (distance >= 200 || distance <= 0) {
-    Serial.println("Out of range");
-  }
-  else {
+  if (distance >= 1 && distance < 30) {
     Serial.print(distance);
     Serial.println(" cm");
   }
-  delay(500);
+  delay(200);
+  
+  //  if (distance >= 100 || distance <= 0) {
+  //    Serial.println("Out of range");
+  //  }
+
 }
